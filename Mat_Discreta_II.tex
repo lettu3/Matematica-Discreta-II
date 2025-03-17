@@ -1,5 +1,5 @@
 %intended compiler: LuaLaTeX
-\documentclass{article}
+\documentclass[12pt]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -7,6 +7,8 @@
 \usetikzlibrary{graphs, graphdrawing, shapes.geometric}
 \usegdlibrary{force}
 \usepackage[spanish]{babel}
+\usepackage{geometry}
+\newgeometry{vmargin= {15mm}, hmargin= {12mm, 17mm}}
 
 \setlength{\parindent}{0pt}
 
@@ -41,15 +43,15 @@ Ejemplo de grafo aqui: \bigskip
 
  El \textbf{vecindario} de un vertice \(x\) es :
 
-\(\Gamma(x) = \left\{y \in V : xy \in E\right\}\)
+\(\Gamma(x) = \left\{y \in V : xy \in E\right\}\) \\
 
 El \textbf{grado} de un vertice \(x\) es:
 
-\(d(x) = |\Gamma(x)|\)
+\(d(x) = |\Gamma(x)|\) \\
 
 \(\delta = min\left\{d(x) : x \in V\right\}\)
 
-\(\Delta = max\left\{d(x) : x \in V\right\}\)
+\(\Delta = max\left\{d(x) : x \in V\right\}\) \\
 
 Un grafo se dice regular si \(\delta = \Delta\) \bigskip
 
@@ -108,15 +110,17 @@ Un coloreo de un grafo $G = (V, E)$ con $k$ colores es una función
 
 El número cromático de un grafo $G$ es
 
-\(\chi(G) = min\left\{k : \exists \text{ un coloreo con } k \text{ colores}\right\} \)
+\(\chi(G) = min\left\{k : \exists \text{ un coloreo con } k \text{ colores}\right\} \) \\
 
 \underline{\textbf{Problema:}}
 
 calcular $\chi(G)$ eficientemente
 
-Algoritmo de fuerza bruta: colorear cada vertice con algun color $1, ..., k$ y chequear si es propio (complejidad $O(n^n)$) \bigskip
+Algoritmo de fuerza bruta: colorear cada vertice con algun color $1, ..., k$ y chequear si es propio
 
-\underline{\textbf{Algoritmo de Greedy para coloreo}}
+(complejidad $O(n^n)$) \bigskip
+
+\subsubsection*{Algoritmo de Greedy para coloreo}
 
 requiere un \textbf{orden} de vertices 
 
@@ -213,7 +217,7 @@ una mirada a los $C_n$
 similar al ejemplo, si $n$ es par 
 \(\implies C(i) = \begin{cases} 1 & i \text{ impar} \\ 2 & i \text{ par}\end{cases}\)
 
-\underline{\textbf{Propiedad:}}
+\subsubsection*{Propiedad:}
 
 si $n$ es impar $\implies$ $\chi(C_n) = 3$ \bigskip
 
