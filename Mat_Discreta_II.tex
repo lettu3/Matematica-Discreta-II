@@ -276,7 +276,232 @@ si $G$ tiene algún ciclo impar como subgrafo, entonces $\chi(G) \geq 3$ \bigski
 \newpage
 
 \section*{Clase del 14/3}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+\subsection*{BFS y DFS}
+
+tanto $BFS(x)$ como $DFS(x)$ $\rightarrow$ encuentran la componente conexa de $x$
+
+\begin{enumerate}
+\item $C = \left\{x\right\}$
+$T = \left\{x\right\}$ \hspace{1em} \textit{Spanning Tree} \\
+$P, Q = [x]$ \hspace{1em} P = pila, Q = cola, $DFS$ usa una pila, $BFS$ usa una cola
+
+\item 
+\texttt{while} \\
+\hspace{2em} $Q \neq \emptyset$ \\
+\hspace{2em} $P \neq \emptyset$
+\end{enumerate}
+
+A partir de aqui, los algoritmos divergen \bigskip
+
+\underline{\textbf{BFS}}
+
+\begin{enumerate}
+\item$\forall y \in \Gamma(z) \cap (V -C)$
+
+$C = C \cup \left\{y\right\}$
+
+$Q$ += $y$
+
+$T$ += $y $
+
+$E(T) = E(T) \cup \left\{y\right\}$
+
+\item remover $z$ de $Q$
+
+\item\texttt{return } $C, T$
+\end{enumerate}
+
+\underline{\textbf{DFS}}
+
+\texttt{if \(\Gamma(z) \cap (V - C) = \emptyset\)}
+
+\hspace{1em} borrar $z$ de $P$
+
+\texttt{else }
+
+\hspace{1em}tomar \textbf{algún} $y \in \Gamma(z) \cap (V-C)$ 
+
+\hspace{1em}$C = C \cup \left\{y\right\}$, agregar $y$ a $P$, $T$
+
+\hspace{1em}agregar $yz$ a $E(t)$
+
+\texttt{return } $C, T$ \bigskip
+
+\subsection*{Problema : "Familia de problemas"}
+
+para cada $k \in \mathbb{N}$ definimos el problema $k-color$ 
+como:\bigskip
+
+dado grafo $G$, es $\chi(G) \leq k$? \bigskip
+
+\begin{center}
+\subsection*{Teorema}
+$2-color$ es polinomial
+\end{center}
+
+\underline{\textbf{Demostracion:}}
+
+daremos un algoritmo que resuelve el problema y es polinomial
+
+observacion: \(\chi(G) \leq 2 \iff \chi(C) \leq 2,  \forall \text{ componente conexa de } G\)
+
+vamos a suponer que G es conexo
+
+\underline{\textbf{algoritmo:}}
+\begin{enumerate}
+\item tomar $x \in V(G)$
+\item correr $BFS(x)$, sea $T(x)$ el $tree$
+\item colorear los vertices de $V(G)$ como \(C(z) \begin{cases} 1 & \text{ si } nivel_{T(x)}(z)\text{ es impar} \\ 2 & \text{ si } nivel_{T(x)}(z) \text{ es par} \end{cases}\)
+\item \texttt{if } (coloreo del paso 3 es propio)
+
+\hspace{1em}resultado = "si"
+
+\texttt{else}
+
+\hspace{1em}resultado = "no"
+
+\end{enumerate}\bigskip
+
+Complejidad:
+
+$BFS(x) \rightarrow$ \(O(n) \\ O(\sum d(z)) = O(2n) = O(n) \)\bigskip
+
+el paso 3 es 'gratis' cuando un vertice $w$ agrega un vertice $v$
+
+\(C(v) =
+\begin{cases}
+1 & \text{ si } C(w) = 2 \\
+2 & \text{ si } C(w) = 1
+\end{cases}
+\)\bigskip
+
+paso 4: $O(n)$ \bigskip
+
+\underline{\textbf{Correctitud:}}
+
+si devuelve ''si'' es porque el coloreo es propio $\implies \chi(G) \leq 2$\bigskip
+
+veamos que pasa si devulve ''no''
+
+para probar eso veremos que $G$ tiene un ciclo impar\bigskip
+
+si la respuesta es ''no'' $\implies$ el coloreo del paso $|3|$ no es propio \(\implies zv \in E(G), C(z) = C(v)\)\bigskip
+
+esto significa:
+
+\(
+C(z) =
+\begin{cases}
+1 & nivel_{T(x)}(z) \text{ par} \\
+2 & nivel_{T(x)}(z)\text{ impar}
+\end{cases}
+\hspace{1em}C(v) = 
+\begin{cases}
+1 & nivel_{T(x)}(v) \text{ par} \\
+2 & nivel_{T(x)}(v)\text{ impar}
+\end{cases}
+\)\bigskip
+
+$\implies$ $nivel(z)$ y $nivel(v)$ son ambos impares $\vee$ ambos pares
+
+\(\implies[nivel(z) + nivel(v) \text{ es par}]\circledast\)\bigskip
+
+sea $xz_{1}z_{2} ... z_{j}$ con $z_j = z$ el único camino entre $x$ y $z$ en $T(x)$
+
+\(\implies nivel(z) = j \)\bigskip
+
+sea $xv_{1}v_{2}...v_i$ con $v_i = v$ el único camino entre $x$ y $v$ en $T(x)$
+
+\(\implies nivel(v) = i\)\bigskip
+
+esos caminos empiezan igual (en $x$) y terminan distinto (en $z$ y $v$) 
+
+$\therefore \exists w$ tal que 
+
+$xz_{1}z_{2}...z_{j} = xz_{1}z_{2}...wz_{p+1}...z_{j}$ 
+
+$xv_{1}v_{2}...v_{i} = xv_{1}v_{2}...wv_{p+1}...v_{i}$
+
+con $p = nivel(w)$  \bigskip
+
+como $zv \in E(G)$, en $G$ tenemos el ciclo
+
+$wz_{p+1}z_{p+2}...z_{j}v_{i}v_{i-1}...v_{p+1}w$\bigskip
+
+tenemos el ciclo $1 + (j - p) + (i -p) = 1  + p(i + j) =$ impar
+
+\(\implies \chi(G) \nleq 2\)\bigskip
+
+\underline{\textbf{Corolario:}}
+
+\(\chi(G) \geq 3 \iff \exists \text{ ciclo impar en } G\)\bigskip
+
+\subsection*{Más sobre Greedy}
+\begin{itemize}
+\item Complejidad $Greedy = O(\sum d(n)) = O(n)$
+\item Cota obvia $\chi(G) \leq \Delta + 1$
+
+($Greedy$ nunca va a colorear con más de $\Delta + 1$ colores)
+\end{itemize}
+
+\begin{enumerate}
+\item \(\chi(K_n) = n = (n-1) + 1 = \Delta + 1\)
+\item \(\chi(C_{2r+1}) = 3 = 2+1 = \Delta + 1\)
+\end{enumerate} \bigskip
+
+Pregunta:
+
+$\exists$ algun grafo conexo $\neq K_n, C_{2r+1}$ con $\chi(G) = \Delta +1 $?\bigskip
+
+Respuesta: NO (teorema de Brooks, 1941)\bigskip
+
+\newpage
+\begin{center}
+\subsection*{Teorema Baby Brooks}
+
+$G$ conexo no regular $\implies \chi(G) \leq \Delta$ 
+\end{center}
+
+\underline{\textbf{Demostración:}}
+
+sea $x \in V(G) : d(x) = \delta$\bigskip
+
+corramos $BFS(x)$ (o $DFS(X)$)
+
+esto da un orden de los vertices. El orden en que se fueron agregando a $BFS$\bigskip
+
+corramos $Greedy$ con el orden \textbf{inverso} a ese
+
+($\therefore x$ es el ultimo)
+
+$x_1, x_2, ... , x_n$ con $x_n = x$\bigskip
+
+tenemos $C(x_1) = 1$
+
+recordemos $C(x_i) = min\left\{k : C(x_j) \neq k,  \forall j < 1 : x_{i,j} \in \Gamma(x)\right\}$\bigskip
+
+En el orden $BFS$ todo vértice (salvo $x$) es agregado al arbol por un \textbf{vecino} que \textbf{ya esta} 
+
+$\implies$ es anterior en el orden $BFS$
+
+$\implies$ todo vertice $\neq x$ tiene un vecino \textbf{anterior} en el orden $BFS$
+
+$\implies$ todo vertice $\neq x$ tiene un vecino \textbf{posterior} en el orden $BFS$ inverso\bigskip
+
+$\therefore$ cuando voy  a colorear $x_i$, $x_i$ tiene a lo sumo $d(x_i) - 1$ vecinos anteriores en el orden $BFS$ inverso
+
+$\therefore$ $Greedy$ elimina a lo sumo $d(x_i) - 1$ colores\bigskip
+
+como $d(x_i) - 1 \leq \Delta -1$
+
+$Greedy$ elimina a lo sumo $\Delta - 1$ colores al analizar $x_i$
+
+$\implies$ va a colorear x con alguno de los colores $1, 2, ..., \Delta$ (eso si $i < n$)\bigskip
+
+pero $i=n \implies x_n = x \implies d(x_n) = \delta < \Delta$
+
+$\implies$ $Greedy$ elimina a lo sumo $\delta$ $\implies$ va a colorear a $x$ con algun color $\in\left\{1, 2, ..., \Delta\right\}$
+
 \newpage
 
 \section*{Clase del 19/3}
