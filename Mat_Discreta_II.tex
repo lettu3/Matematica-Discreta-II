@@ -1,0 +1,89 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, tikz, lmodern}
+\usetikzlibrary{graphs, graphdrawing, shapes.geometric}
+\usegdlibrary{force}
+\usepackage[spanish]{babel}
+
+\title{Notas de Matemática Discreta II}
+\date{2025}
+\author{Ignacio Gomez Barrios}
+
+\begin{document}
+\newpage
+
+\begin{center}
+  \Huge \textbf{Notas de Matemática Discreta II} \\[3cm]
+  \Large 2025 \\[4cm]
+  \Large \textit{Autor: Ignacio Gomez Barrios}
+\end{center}
+
+\newpage
+
+\section{Lógica Proposicional}
+Ejemplo de implicaciones logicas:
+\begin{itemize}
+  \item $P \rightarrow Q$ (Si $P$ entonces $Q$)
+  \item $\neg P \lor Q$ (Forma equivalente de la implicaci�n)
+  \item $P \leftrightarrow Q$ (Si y solo si $P$ entonces $Q$)
+\end{itemize}
+
+\section{Notación de Conjuntos}
+Ejemplo de simbolos usados en teoría de conjuntos:
+\begin{itemize}
+  \item $A \cup B$ (Unión de conjuntos)
+  \item $A \cap B$ (Intersección de conjuntos)
+  \item $A \setminus B$ (Diferencia de conjuntos)
+  \item $A \subseteq B$ (Subconjunto de $B$)
+  \item $\mathbb{N} , \mathbb{Z},  \mathbb{Q}, \mathbb{R},  \mathbb{C}$ (Conjuntos númericos)
+   \item  Sea \( S(x) = \left\{ x \in \mathbb{K} \mid x > 0 \right\} \). (Descripcion de un conjunto)
+\end{itemize}
+
+\section{Grafos}
+Variables usadas en grafos:
+\begin{itemize}
+  \item $V$ (conjunto de vertices)
+  \item $E$ (conjunto de aristas)
+  \item $G = (V, E)$ (Grafo G)
+  \item $d(v)$ (Grado de un vertice $v$)
+  \item \( X(G) \) (número cromático de \( G \))
+  \item \( \delta \) es el minimo grado de algún vertice de \(G \)
+  \item \( \Delta \) es el máximo grado de algún vertice de \(G \)
+\end{itemize}
+
+Ejemplo de un grafo sencillo:
+\begin{center}
+    \begin{tikzpicture}
+        \node (a) {a};
+        \node (b) [right of=a] {b};
+        \node (c) [below of=a] {c};
+        \node (d) [right of=c] {d};
+
+        \draw (a) -- (b);
+        \draw (a) -- (c);
+        \draw (a) -- (d);
+        \draw (b) -- (c);
+        \draw (b) -- (d);
+        \draw (c) -- (d);
+    \end{tikzpicture}
+\end{center}
+
+\section*{Clase del 12/3}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+\newpage
+
+\section*{Clase del 14/3}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+\newpage
+
+\section*{Clase del 19/3}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+\newpage
+
+\section*{Clase del 21/3}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+\end{document}
+   
