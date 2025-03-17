@@ -1,3 +1,4 @@
+%intended compiler: LuaLaTeX
 \documentclass{article}
 
 \usepackage[utf8]{inputenc}
@@ -6,6 +7,8 @@
 \usetikzlibrary{graphs, graphdrawing, shapes.geometric}
 \usegdlibrary{force}
 \usepackage[spanish]{babel}
+
+\setlength{\parindent}{0pt}
 
 \title{Notas de Matemática Discreta II}
 \date{2025}
@@ -22,56 +25,250 @@
 
 \newpage
 
-\section{Lógica Proposicional}
-Ejemplo de implicaciones logicas:
-\begin{itemize}
-  \item $P \rightarrow Q$ (Si $P$ entonces $Q$)
-  \item $\neg P \lor Q$ (Forma equivalente de la implicaci�n)
-  \item $P \leftrightarrow Q$ (Si y solo si $P$ entonces $Q$)
-\end{itemize}
-
-\section{Notación de Conjuntos}
-Ejemplo de simbolos usados en teoría de conjuntos:
-\begin{itemize}
-  \item $A \cup B$ (Unión de conjuntos)
-  \item $A \cap B$ (Intersección de conjuntos)
-  \item $A \setminus B$ (Diferencia de conjuntos)
-  \item $A \subseteq B$ (Subconjunto de $B$)
-  \item $\mathbb{N} , \mathbb{Z},  \mathbb{Q}, \mathbb{R},  \mathbb{C}$ (Conjuntos númericos)
-   \item  Sea \( S(x) = \left\{ x \in \mathbb{K} \mid x > 0 \right\} \). (Descripcion de un conjunto)
-\end{itemize}
-
-\section{Grafos}
-Variables usadas en grafos:
-\begin{itemize}
-  \item $V$ (conjunto de vertices)
-  \item $E$ (conjunto de aristas)
-  \item $G = (V, E)$ (Grafo G)
-  \item $d(v)$ (Grado de un vertice $v$)
-  \item \( X(G) \) (número cromático de \( G \))
-  \item \( \delta \) es el minimo grado de algún vertice de \(G \)
-  \item \( \Delta \) es el máximo grado de algún vertice de \(G \)
-\end{itemize}
-
-Ejemplo de un grafo sencillo:
-\begin{center}
-    \begin{tikzpicture}
-        \node (a) {a};
-        \node (b) [right of=a] {b};
-        \node (c) [below of=a] {c};
-        \node (d) [right of=c] {d};
-
-        \draw (a) -- (b);
-        \draw (a) -- (c);
-        \draw (a) -- (d);
-        \draw (b) -- (c);
-        \draw (b) -- (d);
-        \draw (c) -- (d);
-    \end{tikzpicture}
-\end{center}
-
 \section*{Clase del 12/3}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+\subsection*{Grafos}
+\underline{\textbf{Definición:}} 
+
+Un grafo es un par \((V, E)\) donde \(V\) es un conjunto y \(E\) es un \textbf{subconjunto} del conjunto de 2 elementos de \(V\)
+
+\(E \subseteq \left\{A \subseteq V : |A| = 2\right\}\) \bigskip
+
+\underline{\textbf{Notación:}}
+
+\(\left\{x, y\right\}\) se denotará \(xy \therefore xy = yx\)
+
+Ejemplo de grafo aqui: \bigskip
+
+ El \textbf{vecindario} de un vertice \(x\) es :
+
+\(\Gamma(x) = \left\{y \in V : xy \in E\right\}\)
+
+El \textbf{grado} de un vertice \(x\) es:
+
+\(d(x) = |\Gamma(x)|\)
+
+\(\delta = min\left\{d(x) : x \in V\right\}\)
+
+\(\Delta = max\left\{d(x) : x \in V\right\}\)
+
+Un grafo se dice regular si \(\delta = \Delta\) \bigskip
+
+Ejemplos de grafos "famosos"
+
+\begin{enumerate}
+\item 
+
+\(C_n\) son los ciclos con \(n\) elementos, con \(n \geq 3\)
+
+\(V = \left\{1, 2, 3, ..., n\right\}\)
+
+\(E = \left\{12, 23, ..., (n-1)n, n1\right\}\)
+
+ejemplo de \(C_n\) aqui
+
+\item
+\(K_n = \) grafo completo en \(n\) vertices, con \(n \in \mathbb{N}\) 
+
+\(V = \left\{1, 2, ..., n\right\}\)
+
+\(E = \left\{A \subseteq V : |A| = 2\right\}\)
+
+ejemplo de \(K_n\) aqui
+
+\item
+\(K_{r, t} \) es el grafo \(V = \left\{X \cup Y\right\}\), \(E = \left\{xy : x \in X, y \in Y\right\}\) 
+
+ejemplo de \(K_{r, t}\) aqui
+
+Este el \textit{"grafo bipartito completo"}
+\end{enumerate}
+\bigskip
+
+\underline{\textbf{Definición:}}
+
+un \textbf{camino} entre \(x\) e \(y\) es una sucesión de vertices \(z_0, z_1, ..., z_t\) tales que \(z_0 = x\), \(z_t = y\) y \(\forall i  : 0 \leq i \leq t\) tenemos  \(z_{i}z_{i+1} \in E\)
+
+Entonces denotamos 
+
+\(x \sim y \iff \exists\) un camino desde \(x\) a \(y\)
+
+$\sim$ es una relación de equivalencia $\rightarrow$ induce una partición de $V$ en clases de equivalencia, las cuales se llaman componentes conexas. \bigskip
+
+\underline{\textbf{Definición:}}
+
+Un Grafo es conexo si tiene 1 sola componente conexa
+
+\subsection*{Coloreo de grafos}
+
+Un coloreo de un grafo $G = (V, E)$ con $k$ colores es una función 
+
+\(C : V \rightarrow \left\{1, ..., k\right\}\) tal que \(xy \in E \implies C(x) \neq C(y)\) \bigskip
+
+\underline{\textbf{Definición:}}
+
+El número cromático de un grafo $G$ es
+
+\(\chi(G) = min\left\{k : \exists \text{ un coloreo con } k \text{ colores}\right\} \)
+
+\underline{\textbf{Problema:}}
+
+calcular $\chi(G)$ eficientemente
+
+Algoritmo de fuerza bruta: colorear cada vertice con algun color $1, ..., k$ y chequear si es propio (complejidad $O(n^n)$) \bigskip
+
+\underline{\textbf{Algoritmo de Greedy para coloreo}}
+
+requiere un \textbf{orden} de vertices 
+
+\(x_1, x_2, ..., x_n\) en algun orden \bigskip
+
+\(
+Greedy 
+\begin{cases}
+C(x_1) = 1 \\
+C(x_i) = min\left\{k : k \text{ no sea color de ningun } x_1, x_2, ..., x_{i - 1} \text{ que sea vecino de } x_i\right\}
+\end{cases}
+\) \\
+
+invariante de $Greedy$: los coloreos son propios \bigskip
+
+$Greedy$ no calcula necesariamente $\chi(G)$
+
+por ejemplo, en $C_6$ con el orden $1, 4, 2, 3, 5, 6$
+
+\[
+\begin{array}{|c|}
+\hline
+\textbf{1} \\
+\hline
+1 \\
+\hline
+\end{array}
+\rightarrow
+\begin{array}{|c|}
+\hline
+\textbf{1} \\
+\hline
+1 \\
+\hline
+4 \\
+\hline
+\end{array}
+\rightarrow
+\begin{array}{|c|c|}
+\hline
+\textbf{1} &  \textbf{2}\\
+\hline
+1  & 2 \\
+\hline
+4 \\
+\hline
+\end{array}
+\rightarrow
+\begin{array}{|c|c|c|}
+\hline
+\textbf{1} &  \textbf{2} & \textbf{3} \\
+\hline
+1  & 2  & 3 \\
+\hline
+4 \\
+\hline
+\end{array}
+\rightarrow
+\begin{array}{|c|c|c|}
+\hline
+\textbf{1} &  \textbf{2} & \textbf{3} \\
+\hline
+1  & 2  & 3 \\
+\hline
+4  & 5 \\
+\hline
+\end{array}
+\rightarrow
+\begin{array}{|c|c|c|}
+\hline
+\textbf{1} &  \textbf{2} & \textbf{3} \\
+\hline
+1  & 2  & 3 \\
+\hline
+4  & 5  & 6\\
+\hline
+\end{array}
+\]
+
+\(
+\implies Greedy \text{ da un coloreo con } 3 \text{ colores, pero } 
+\begin{cases}
+C(x_1) = 1 & i \text{ impar}\\
+C(x_i) = 2 & i \text{ par}
+\end{cases} \text{ es propio} 
+\) 
+
+\(
+\implies Greedy(G) \neq \chi(G) = 2
+\) \bigskip
+
+una mirada a los $C_n$
+
+similar al ejemplo, si $n$ es par 
+\(\implies C(i) = \begin{cases} 1 & i \text{ impar} \\ 2 & i \text{ par}\end{cases}\)
+
+\underline{\textbf{Propiedad:}}
+
+si $n$ es impar $\implies$ $\chi(C_n) = 3$ \bigskip
+
+\underline{\textbf{Demostración:}}
+
+veamos primero que $\chi(C_n) \geq 3$ si $n$ es impar \bigskip
+
+supongamos que no $\implies \exists$ un coloreo propio con 2 colores \bigskip
+
+sea $A$ el color del vertice 1
+
+$12 \in E \implies C(2) \neq C(1) = A$, como solo hay 2 colores,  $C(2) = B$
+
+$23 \in E \implies C(3) \neq C(2) = B$, como solo hay 2 colores $C(3) = A$ \bigskip
+
+generalizando, tenemos $C(i) = A$ si $i$ es impar, $C(i) = B$ si $i$ es par \bigskip
+
+$\implies C(n) = A$ (pues $n$ impar) y $C(1) = A$, pero $n1 \in E$
+$\implies C(n) \neq C(1)$ \textbf{Absurdo} \bigskip
+
+veamos ahora que $\chi(C_n) \leq 3$
+
+
+\[
+\text{sea el coloreo: }
+C(i) =
+\begin{cases}
+1 & i \text{ impar, } i < n \\
+2 & i \text{ par} \\
+3 & i = n
+\end{cases}
+\]
+
+es propio $\therefore \chi(C_n) \leq 3$ \bigskip
+
+\textbf{observación parcial:}
+
+sea $H = (W, F)$ un \textit{subgrafo} de $G = (V, E)$ 
+
+(es decir, $H$ es un grafo y $W \subseteq V, F \subseteq E$)
+
+\(\implies \chi(H) \leq \chi(G)\) \bigskip
+
+\underline{\textbf{Corolario:}}
+
+si $G$ tiene algún ciclo impar como subgrafo, entonces $\chi(G) \geq 3$ \bigskip
+
+\underline{\textbf{Observaciones:}}
+
+\begin{itemize}
+\item $\chi(G) \leq n$ con $n =$ número de vertices
+\item $\chi(K_n) = n$
+\item Si $K_r$ es un subgrafo de G $\implies r \leq \chi(G)$
+\end{itemize}
+
 \newpage
 
 \section*{Clase del 14/3}
