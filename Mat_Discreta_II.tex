@@ -735,35 +735,35 @@ $\gamma(f) = f(S,\overline{S}) - f(\overline{S}, S)$
 
 \subsection*{Demostración}
 
-calculamos $\sum_{x \in S}out_f(x) - in_f(x)$
+calculamos $\sum_{x \in S}out_f(x) - in_f(x)$ \\
 
-\(= (out_f(s) - in_f(s)) + \sum_{\substack{x \in S \\ x \ne s}}out_f(x) - in_f(x)\)
+\(= (out_f(s) - in_f(s)) + \sum_{\substack{x \in S \\ x \ne s}}out_f(x) - in_f(x)\) \hspace{12em}(definición de $\sum$ para $x=s$)\\ 
 
-\(= (out_f(s) - 0) + 0\)
+\(= (out_f(s) - 0) + 0\) \hspace{16em}(definicion de $in_f(s)$ y $out_f(x) = in_f(x) \forall x \ne s $)\\
 
-\(= out_f(s)\)
+\(= out_f(s)\) \\
 
-\(= \gamma(f)\)
+\(= \gamma(f)\) \\
 
-\(\implies \gamma(f) = \sum_{x \in S}(out_f(x)-in_f(x))\)
+\(\implies \gamma(f) = \sum_{x \in S}(out_f(x)-in_f(x))\) \\
 
-\(= \sum_{x \in S}out_f(x) - \sum_{x \in S}in_f(x)\)
+\(= \sum_{x \in S}out_f(x) - \sum_{x \in S}in_f(x)\) \hspace{26em} (def de $\sum$) \\
 
-\(= \sum_{x \in S}\sum_{y \in \Gamma^{+}(x)}f(x, y) - \sum_{x \in S}\sum_{y \in \Gamma^{-}(x)}f(y,x)\)
+\(= \sum_{x \in S}\sum_{y \in \Gamma^{+}(x)}f(x, y) - \sum_{x \in S}\sum_{y \in \Gamma^{-}(x)}f(y,x)\) \hspace{12em} (def de $out_f(x)$ y $in_f(x)$)\\
 
-\(= \sum_{\substack{x \in S \\ y \in V \\ \overrightarrow{xy} \in E}}f(x,y) - \sum_{\substack{x \in S \\ y \in V \\ \overrightarrow{xy} \in E}}f(y,x)\)
+\(= \sum_{\substack{x \in S \\ y \in V \\ \overrightarrow{xy} \in E}}f(x,y) - \sum_{\substack{x \in S \\ y \in V \\ \overrightarrow{xy} \in E}}f(y,x)\)\\
 
-pero, observemos por un momento que si $A\cap B = \emptyset$, entonces
+pero, observemos por un momento que si $A\cap B = \emptyset$, entonces\\
 
-\(f(A \cup B, C) = f(A,C) + f(B, C)\)
+\(f(A \cup B, C) = f(A,C) + f(B, C)\)\\
 
-\(f(C, A \cup B) = f(C, A) + f(C, B)\)
+\(f(C, A \cup B) = f(C, A) + f(C, B)\)\\
 
-entonces, continuamos con la demostración
+Entonces, continuamos con la demostración\\
 
-\(= \sum_{\substack{x \in S \\ y \in V \\ \overrightarrow{xy} \in E}}f(x,y) - \sum_{\substack{x \in S \\ y \in V \\ \overrightarrow{xy} \in E}}f(y,x) = f(S, S \cup \overline{S}) - f(S \cup \overline{S}, S)\)
+\(= \sum_{\substack{x \in S \\ y \in V \\ \overrightarrow{xy} \in E}}f(x,y) - \sum_{\substack{x \in S \\ y \in V \\ \overrightarrow{xy} \in E}}f(y,x) = f(S, S \cup \overline{S}) - f(S \cup \overline{S}, S)\) \\
 
-\(= f(S,S) + f(S, \overline{S}) - f(S, S) - f(\overline{S}, S)\)
+\(= f(S,S) + f(S, \overline{S}) - f(S, S) - f(\overline{S}, S)\)\\
 
 \(= f(S, \overline{S}) - f(\overline{S}, S)\)
 
@@ -806,27 +806,27 @@ si aumentamos $f$ en $\varepsilon$, lo que queda es flujo
 
 si $\overrightarrow{xy}$ no forma parte del camino $f$, queda igual
 
-si tengo un lado forward $\overrightarrow{x_{i}x_{i+1}}$, llamaremos $f^*$ a lo que obtenemos luego de aumentar
+si tengo un lado forward $\overrightarrow{x_{i}x_{i+1}}$, llamaremos $f^*$ a lo que obtenemos luego de aumentar\\
 
 \(f^*(\overrightarrow{x_{i}x_{i+1}}) = f(\overrightarrow{x_{i}x_{i+1}}) + \varepsilon\)
 
 \(f^*(\overrightarrow{x_{i}x_{i+1}}) \geq 0 + \varepsilon\)
 
-\(f^*(\overrightarrow{x_{i}x_{i+1}}) \geq  \varepsilon\ > 0\)
+\(f^*(\overrightarrow{x_{i}x_{i+1}}) \geq  \varepsilon\ > 0\)\\
 
 
 
-y
+y\\
 
 \(f^*(\overrightarrow{x_{i}x_{i+1}}) = f(\overrightarrow{x_{i}x_{i+1}}) + \varepsilon\)
 
 \(f^*(\overrightarrow{x_{i}x_{i+1}}) \leq f(\overrightarrow{x_{i}x_{i+1}}) + \varepsilon_i \)
 
-\(f^*(\overrightarrow{x_{i}x_{i+1}}) \leq  f(\overrightarrow{x_{i}x_{i+1}}) +  C(\overrightarrow{x_{i}x_{i+1}}) - f(\overrightarrow{x_{i}x_{i+1}})\)              (def de $\varepsilon_i$)
+\(f^*(\overrightarrow{x_{i}x_{i+1}}) \leq  f(\overrightarrow{x_{i}x_{i+1}}) +  C(\overrightarrow{x_{i}x_{i+1}}) - f(\overrightarrow{x_{i}x_{i+1}})\)\hspace{18em}(def de $\varepsilon_i$)
 
-\(f^*(\overrightarrow{x_{i}x_{i+1}}) \leq C(\overrightarrow{x_{i}x_{i+1}}) \)
+\(f^*(\overrightarrow{x_{i}x_{i+1}}) \leq C(\overrightarrow{x_{i}x_{i+1}}) \)\\
 
-\(\implies 0 < f^*(\overrightarrow{x_{i+1}x_{i}}) \leq C(\overrightarrow{x_{i+1}x_{i}} \)
+\(\implies 0 < f^*(\overrightarrow{x_{i+1}x_{i}}) \leq C(\overrightarrow{x_{i+1}x_{i}} \)\\
 
 caso backward
 
@@ -834,23 +834,23 @@ caso backward
 
 \(f^*(\overrightarrow{x_{i+1}x_{i}}) < f(\overrightarrow{x_{i+1}x_{i}}\)
 
-\(f^*(\overrightarrow{x_{i+1}x_{i}}) < C(\overrightarrow{x_{i+1}x_{i}}\)
+\(f^*(\overrightarrow{x_{i+1}x_{i}}) < C(\overrightarrow{x_{i+1}x_{i}}\)\\
 
-y 
+y \\
 
 \(f^*(\overrightarrow{x_{i+1}x_{i}}) = f(\overrightarrow{x_{i+1}x_{i}}) - \varepsilon\)
 
 \(f^*(\overrightarrow{x_{i+1}x_{i}}) \geq f(\overrightarrow{x_{i+1}x_{i}}) - \varepsilon\)
 
-\(f^*(\overrightarrow{x_{i+1}x_{i}}) \geq 0\)
+\(f^*(\overrightarrow{x_{i+1}x_{i}}) \geq 0\)\\
 
-\(\implies 0 \leq f^*(\overrightarrow{x_{i+1}x_{i}}) <C(\overrightarrow{x_{i+1}x_{i}} \)
+\(\implies 0 \leq f^*(\overrightarrow{x_{i+1}x_{i}}) <C(\overrightarrow{x_{i+1}x_{i}} \)\\
 
 conclusión:
 
 en cualquiera de los 2 casos
 
-\(0 \leq f^*(\overrightarrow{xy}) \leq C(\overrightarrow{xy}) \)
+\(0 \leq f^*(\overrightarrow{xy}) \leq C(\overrightarrow{xy}) \)\\
 
 queda ahora determinar que $in_{f^*}(x) = out_{f^*}(x)$ $\forall x \ne s, t$
 \newpage
