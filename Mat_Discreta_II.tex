@@ -505,7 +505,354 @@ $\implies$ $Greedy$ elimina a lo sumo $\delta$ $\implies$ va a colorear a $x$ co
 \newpage
 
 \section*{Clase del 19/3}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+\subsection*{Ejemplo de Greedy "desastrozo"}
+\(V =  \left \{ 1, 2, ..., 2r\right \},  r  \in  \mathbb{N}\)
+
+ \( E =  \left \{ xy : x, y  \in V, x  \text{ impar, } y  \text{ par }  \ne x + 1\right \}\)
+
+Ejemplo con $r = 4$
+
+Ejemplo aqui
+
+como no hay lados entre los vertices impares y no hay lados entre los lados pares, entonces $\chi(G) = 2$
+
+\(C(x_i) =
+\begin{cases}
+1 & i \text{ par} \\
+2 & i \text{ impar}
+\end{cases} \)
+
+corramos $Greedy$ en el orden \textit{natural} (1, 2, 3 , 4, 5, 6, 7, 8)
+
+TABLA AQUI
+
+$Greedy$ colorea en ese caso con $r$ colores y $r \ne 2$
+
+\begin{center}
+\subsection*{Teorema}
+
+sea G un grafo que *ya tiene* un coloreo propio con $r$ colores (obtenidos de alguna forma, no necesariamente Greedy)
+
+$\implies$ $Greedy$ en ese orden coloreara con a lo sumo $r$ colores
+
+\end{center}
+
+formalmente
+
+sea $\pi : \left\{1, ..., r\right\} \rightarrow \left\{1, ..., r\right\}$ una biyección \\
+sea $V_i = \left\{x \in V : C(x) = i\right\}$
+
+si corremos $Greedy$ poniendo todos los vertices de $V_{\pi(1)}$ primero, luego todos los vertices de $V_{\pi(2)}$, etc. Terminando con los vertices de $V_{\pi(r)}$ al final, entonces tenemos $\leq r$ colores
+
+\subsection*{Demostración}
+
+sea $w_i = V_{\pi(1)} \cup V_{\pi(2)} \cup ... \cup V_{\pi(i)}$
+
+hipótesis inductiva: $Greedy$ (en el orden del enunciado) colorea con $w_i$ con $\leq i$ colores
+
+si probamos esto para todo $i$, como $w_r = V_r$ tendremos al teorema
+
+\subsection*{Caso base}
+$i = 1$
+
+$w_i = V_{\pi(1)}$ vertices de color $\pi(1)$
+
+como el coloreo original es propio y todos esos vertices tienen el mismo color, entonces no puede haber ningún lado entre ellos
+
+$\therefore Greedy$ colorea a $w_1$ con 1 color
+
+
+\subsection*{Paso inductivo}
+
+asumamos por inducción que $Greedy$ colorea a $w_i$ con $\leq i$ colores y demostremos que Greedy coloreara a $w_{i+1}$ con $\leq i + 1$ colores
+
+supongamos que no
+
+$\implies$ debe haber un vertice $x \in w_{i+1}$ tal que $Greedy(x) = i + 2$
+
+$\implies$ $Greedy$ no le pudo dar el color $i+1$
+
+$\implies \exists y \in \Gamma(x)$ anterior a $x$ en el orden anterior tal que $Greedy(y) = i + 1$ 
+ 
+como $x \in w_{i+1}$, $y$ es anterior a $x$ $\implies$ $y \in w_{i+1}$ también
+
+$x, y \in w_{i+1}$
+
+$\implies$ $x, y \notin w_i$ (porque $y$ tiene color $i+1$ y $x$ tiene color $i+2$)
+
+$\implies x, y \in w_{i+1} - w_i$  ($w_{i+1} - w_i = V_{\pi(i+1)}$)
+
+en resumen
+
+$x,y \in V_{\pi(i+1)}, y \in \Gamma(x) \implies$ tienen el mismo color pero son vecinos $\implies$ ABSURDO
+
+\subsection*{Corolario}
+
+$\exists$ algún orden de los vertices tal que $Greedy$ colorea con exactamente $\chi(G)$ colores
+
+tomemos un coloreo de G con $\chi(G)$ colores, reordenemos de acuerdo al teorema
+
+$\implies$ $Greedy$ usara $\leq r$ colores $\implies$ $Greedy$ usara $\chi(G)$
+
+\section*{Flujos en networks}
+
+\subsection*{Grafo dirigido}
+
+un grafo dirigido es un par $(V, E)$ con $E \subseteq V \times V$
+
+notación: 
+
+$\overrightarrow{xy} = (x, y)$
+
+$\Gamma^{+}(x) = \left\{y \in V : \overrightarrow{xy} \in E\right\}$ 
+
+$ \Gamma^{-}(x) = \left\{y \in V: \overrightarrow{yx} \in E\right\}$
+
+un network es un triple $(V, E, C)$ con $(V, E)$ grafo dirigido y $C: E \rightarrow \mathbb{R} \geq 0$
+
+\subsection*{Definición}
+
+dada $f : E \rightarrow \mathbb{R} \geq 0$, $x \in V$ denotamos
+
+$out_{f}(x) = \sum_{y \in \Gamma^{+}(x)}^{} f(x, y)$
+
+$in_{f}(x) = \sum_{y \in \Gamma^{-}(x)}^{} f(x, y)$
+
+\subsection*{Definición}
+
+dado un network $N = (V, E, C)$ y $s,t \in V$
+
+definimos un flujo en $N$ de $s$ a $t$ como una función
+
+$f: E \rightarrow \mathbb{R}$ tal que
+
+\begin{enumerate}
+\item $0 \leq f(x, y) \leq C(x,y)$  $\forall(x, y) \in E$
+\item $out_{f}(x) = in_{f}(x)$ $\forall x \ne s, t$    'ley de conservación'
+\item $in_{f}(s) = 0$      $s$ es productor, alternativamente $in_{f}(s) \leq out_{f}(s)$
+\item $out_{f}(t) = 0$    $t$ es consumidor, alternativamente $out_{f}(s) \leq in_{f}(s)$
+\end{enumerate}
+
+\subsection*{Propiedad: cantidad obvia}
+
+sea $f$ flujo de $s$ a $t$ $\implies$ $out_{f}(s) = in_{f}(s)$
+
+\subsection*{Definición:}
+
+el valor de $f$ es $\gamma(f) = out_f(s)$       $(=in_f(t))$
+
+\subsection*{Max flow problem - Problema del flujo maximal}
+
+dado un network $N$ y $s, t \in V$, hallar un flujo 'maximal' de $s$ a $t$. Es decir, $f$ flujo de $s$ a $t$ tal que 
+
+$\gamma(g) \leq \gamma(f)$ $\forall$ flujo $g$ de $s$ a $t$
+
+
+\subsection*{Definición}
+
+un camino dirigido en un network (o cualquier grafo) desde un vertice $x$ a un vertice $y$ (entre $x$ e $y$) es una sucesión de vertices $x_0,x_1, .. x_r$ tales que $x_0 = x$ y $x_r = y$
+
+$\overrightarrow{x_{i}x_{i+1}} \in E $    $\forall 0 \leq i < r$
+
+
+\subsection*{Definición}
+
+un lado $\overrightarrow{xy}$ se dice saturado (relativo a un flujo $f$) si $f(x) = C(x)$
+
+\subsection*{Algoritmo 'Greedy' para flujo maximal}
+
+\begin{enumerate}
+\item $f = 0 \rightarrow f(x,y) = 0$    $\forall xy$
+\item
+\texttt{while (1) \{}
+
+\hspace{1em} \texttt{if } ($\exists$ un camino dirigido de $s$ a $t$ sin ningun lado saturado)
+
+\hspace{3em} sea $x_0 = s, x_1, ..., x_r = t$ un camino
+
+\hspace{3em} $\varepsilon = min \left\{C(\overrightarrow{x_ix_{i+1}}) - f(\overrightarrow{x_ix_{i+1}}) : 0 \leq i < r\right\}$
+
+\hspace{3em} mandar $\epsilon$ unidades de flujo por el camino
+
+\hspace{3em} $f(\overrightarrow{xy})$ \texttt{=} $f(\overrightarrow{xy}) + \varepsilon$
+
+\hspace{1em} \texttt{else}
+
+\hspace{3em} \texttt{return (f);}
+
+\texttt{\}}
+\end{enumerate}
+
+\subsection*{Complejidad de Greedy}
+
+en cada iteración del \texttt{while} se satura al menos un lado $\implies$ hay $O(n)$ iteraciones
+
+complejidad de cada iteración:
+
+hay que encontrar un camino dirigido 'no saturado' $\rightarrow$ usamos $BFS/DFS$ $\implies O(n)$
+ademas, sumamos $O(n)$ de calcular $\varepsilon$ y aumentar $\varepsilon$
+
+complejidad total = $O(n^2)$ es polinomial
+
+EJEMPLO DE GREEDY ACA
+
+
+Ahora vamos a 'alterar' a Greedy permitiendo *otros* caminos, 'no dirigidos'. veremos el Algoritmo de Ford-Fulkerson, que es esencialmente Greedy con esos caminos 'augmenting paths'
+
+\section*{Motivación para caminos aumentantes}
+
+EJEMPLO ACA
+
+\subsection*{Definición}
+un camino 'aumentante' de $x$ a $y$ es una sucesión de vertices $x_0 = x,  x_1, ..., x_r = y$ tal que $\forall 0 \leq i < r$ pasa una de las 2 cosas siguientes
+
+\begin{enumerate}
+\item \(\overrightarrow{x_ix_{i+1}} \in E \land f(\overrightarrow{x_ix_{i+1}}) < C(\overrightarrow{x_ix_{i+1}})\)
+\item \(\overrightarrow{x_{i+1}x_i} \in E \land f(\overrightarrow{x_{i+1}x_i}) > 0\)
+\end{enumerate}
+
+con casos 1) 'Forward'  y 2) 'Backward'
+
+\subsection*{Definición}
+
+un corte es un subconjunto $S \subseteq V$ tal que $s \in S, t \notin S$
+
+\subsection*{Notación}
+sea $f: E \rightarrow \mathbb{R}$
+
+vamos a extender a $f$ de pares de vertices a pares de conjuntos de vertices si $A,B \subseteq V$
+
+\(
+f(A,B) = \sum_{\substack{x \in A \\ y \in B \\ \overrightarrow{xy} \in E}} f(x, y)
+\)
+
+\begin{center}
+\section*{Teorema}
+sea $f$ flujo y $S$ corte
+
+$\gamma(f) = f(S,\overline{S}) - f(\overline{S}, S)$
+\end{center}
+
+\subsection*{Demostración}
+
+calculamos $\sum_{x \in S}out_f(x) - in_f(x)$
+
+\(= (out_f(s) - in_f(s)) + \sum_{\substack{x \in S \\ x \ne s}}out_f(x) - in_f(x)\)
+
+\(= (out_f(s) - 0) + 0\)
+
+\(= out_f(s)\)
+
+\(= \gamma(f)\)
+
+\(\implies \gamma(f) = \sum_{x \in S}(out_f(x)-in_f(x))\)
+
+\(= \sum_{x \in S}out_f(x) - \sum_{x \in S}in_f(x)\)
+
+\(= \sum_{x \in S}\sum_{y \in \Gamma^{+}(x)}f(x, y) - \sum_{x \in S}\sum_{y \in \Gamma^{-}(x)}f(y,x)\)
+
+\(= \sum_{\substack{x \in S \\ y \in V \\ \overrightarrow{xy} \in E}}f(x,y) - \sum_{\substack{x \in S \\ y \in V \\ \overrightarrow{xy} \in E}}f(y,x)\)
+
+pero, observemos por un momento que si $A\cap B = \emptyset$, entonces
+
+\(f(A \cup B, C) = f(A,C) + f(B, C)\)
+
+\(f(C, A \cup B) = f(C, A) + f(C, B)\)
+
+entonces, continuamos con la demostración
+
+\(= \sum_{\substack{x \in S \\ y \in V \\ \overrightarrow{xy} \in E}}f(x,y) - \sum_{\substack{x \in S \\ y \in V \\ \overrightarrow{xy} \in E}}f(y,x) = f(S, S \cup \overline{S}) - f(S \cup \overline{S}, S)\)
+
+\(= f(S,S) + f(S, \overline{S}) - f(S, S) - f(\overline{S}, S)\)
+
+\(= f(S, \overline{S}) - f(\overline{S}, S)\)
+
+\section*{Algoritmo de Ford-Fulkerson}
+\begin{enumerate}
+\item \(f = 0\) (o con cualquier flujo)
+\item \texttt{while} ($\exists$ $f$-camino aumentante entre $s$ y $t$)
+
+\hspace{3em} tomar $s = x_0, x1, ..., t = x_r$ un camino aumentante
+
+\hspace{3em} 
+\(\varepsilon_i =
+\begin{cases}
+C(\overrightarrow{x_{i}x_{i+1}}) - f(\overrightarrow{x_{i}x_{i+1}}) & \text{ si } \overrightarrow{x_{i}x_{i+1}} \in E \\
+f(\overrightarrow{x_{i+1}x_i}) & \text{ si } \overrightarrow{x_{i+1}x_i} \in E
+\end{cases} 
+\)
+
+\hspace{3em} \(\varepsilon = min(\varepsilon_i)\)
+
+\hspace{3em} aumentar $f$ en $\varepsilon$ a lo largo del camino *
+
+\texttt{end while}
+
+\item \texttt{return \((f)\)}
+\end{enumerate}
+
+*nota: 'aumentar $f$ en $\varepsilon$' : 
+
+$f_{nuevo}(\overrightarrow{x_ix_{i+1}}) = f_{viejo}(\overrightarrow{x_ix_{i+1}}) + \varepsilon$ caso 'forward'
+
+$f_{nuevo}(\overrightarrow{x_{i+1}x_{i}}) = f_{viejo}(\overrightarrow{x_{i+1}x_{i}}) + \varepsilon$ caso 'backward'
+
+\begin{center}
+\section*{Teorema}
+si aumentamos $f$ en $\varepsilon$, lo que queda es flujo
+\end{center}
+
+\subsection*{Demostración}
+
+si $\overrightarrow{xy}$ no forma parte del camino $f$, queda igual
+
+si tengo un lado forward $\overrightarrow{x_{i}x_{i+1}}$, llamaremos $f^*$ a lo que obtenemos luego de aumentar
+
+\(f^*(\overrightarrow{x_{i}x_{i+1}}) = f(\overrightarrow{x_{i}x_{i+1}}) + \varepsilon\)
+
+\(f^*(\overrightarrow{x_{i}x_{i+1}}) \geq 0 + \varepsilon\)
+
+\(f^*(\overrightarrow{x_{i}x_{i+1}}) \geq  \varepsilon\ > 0\)
+
+
+
+y
+
+\(f^*(\overrightarrow{x_{i}x_{i+1}}) = f(\overrightarrow{x_{i}x_{i+1}}) + \varepsilon\)
+
+\(f^*(\overrightarrow{x_{i}x_{i+1}}) \leq f(\overrightarrow{x_{i}x_{i+1}}) + \varepsilon_i \)
+
+\(f^*(\overrightarrow{x_{i}x_{i+1}}) \leq  f(\overrightarrow{x_{i}x_{i+1}}) +  C(\overrightarrow{x_{i}x_{i+1}}) - f(\overrightarrow{x_{i}x_{i+1}})\)              (def de $\varepsilon_i$)
+
+\(f^*(\overrightarrow{x_{i}x_{i+1}}) \leq C(\overrightarrow{x_{i}x_{i+1}}) \)
+
+\(\implies 0 < f^*(\overrightarrow{x_{i+1}x_{i}}) \leq C(\overrightarrow{x_{i+1}x_{i}} \)
+
+caso backward
+
+\(f^*(\overrightarrow{x_{i+1}x_{i}}) = f(\overrightarrow{x_{i+1}x_{i}}) - \varepsilon\)
+
+\(f^*(\overrightarrow{x_{i+1}x_{i}}) < f(\overrightarrow{x_{i+1}x_{i}}\)
+
+\(f^*(\overrightarrow{x_{i+1}x_{i}}) < C(\overrightarrow{x_{i+1}x_{i}}\)
+
+y 
+
+\(f^*(\overrightarrow{x_{i+1}x_{i}}) = f(\overrightarrow{x_{i+1}x_{i}}) - \varepsilon\)
+
+\(f^*(\overrightarrow{x_{i+1}x_{i}}) \geq f(\overrightarrow{x_{i+1}x_{i}}) - \varepsilon\)
+
+\(f^*(\overrightarrow{x_{i+1}x_{i}}) \geq 0\)
+
+\(\implies 0 \leq f^*(\overrightarrow{x_{i+1}x_{i}}) <C(\overrightarrow{x_{i+1}x_{i}} \)
+
+conclusión:
+
+en cualquiera de los 2 casos
+
+\(0 \leq f^*(\overrightarrow{xy}) \leq C(\overrightarrow{xy}) \)
+
+queda ahora determinar que $in_{f^*}(x) = out_{f^*}(x)$ $\forall x \ne s, t$
 \newpage
 
 \section*{Clase del 21/3}
